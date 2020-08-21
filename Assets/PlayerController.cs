@@ -31,18 +31,23 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void FixedUpdate () {
+		//Change the sprite (player direction)
+		if (horizontal > 0)
+			ChangeSprite (right);
+		else if (horizontal < 0)
+			ChangeSprite (left);
+		else if (vertical > 0)
+			ChangeSprite (up);
+		else if (vertical < 0)
+			ChangeSprite (down);
+
+		//set up the movement speed
 		if (horizontal != 0 && vertical != 0) {
 			horizontal *= moveLimiter;
 			vertical *= moveLimiter;
-
-			if (horizontal > 0 && vertical == 0)
-				ChangeSprite (right);
-			else if (horizontal < 0 && vertical == 0)
-				ChangeSprite (left);
-		} else {
-			ChangeSprite (right);
 		}
 
+		//apply movement speed to player
 		body.velocity = new Vector3 (horizontal * runSpeed, vertical * runSpeed, 0.0f);
 	}
 
